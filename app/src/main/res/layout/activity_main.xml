@@ -4,6 +4,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.jianastrero.mobilesoftwareengineerexampropelrr.viewmodel.MainViewModel" />
+
+    </data>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -30,6 +38,7 @@
                 android:paddingTop="32dp">
 
                 <com.jianastrero.mobilesoftwareengineerexampropelrr.view.ValidatableTextInputLayout
+                    android:id="@+id/tilFullName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/full_name">
@@ -37,11 +46,13 @@
                     <com.google.android.material.textfield.TextInputEditText
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:text="@={ viewModel.fullName }"
                         tools:text="Jian James P. Astrero" />
 
                 </com.jianastrero.mobilesoftwareengineerexampropelrr.view.ValidatableTextInputLayout>
 
                 <com.jianastrero.mobilesoftwareengineerexampropelrr.view.ValidatableTextInputLayout
+                    android:id="@+id/tilEmail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
@@ -50,11 +61,13 @@
                     <com.google.android.material.textfield.TextInputEditText
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:text="@={ viewModel.emailAddress }"
                         tools:text="jianjamesastrero@gmail.com" />
 
                 </com.jianastrero.mobilesoftwareengineerexampropelrr.view.ValidatableTextInputLayout>
 
                 <com.jianastrero.mobilesoftwareengineerexampropelrr.view.ValidatableTextInputLayout
+                    android:id="@+id/tilMobileNumber"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
@@ -62,12 +75,15 @@
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:text="@={ viewModel.mobileNumber }"
+                        tools:text="09162305497" />
 
                 </com.jianastrero.mobilesoftwareengineerexampropelrr.view.ValidatableTextInputLayout>
 
                 <com.jianastrero.mobilesoftwareengineerexampropelrr.view.ValidatableTextInputLayout
                     style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
+                    android:id="@+id/tilGender"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
@@ -77,11 +93,14 @@
                         android:id="@+id/filled_exposed_dropdown"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:editable="false"/>
+                        android:editable="false"
+                        android:text="@={ viewModel.gender }"
+                        tools:text="Male" />
 
                 </com.jianastrero.mobilesoftwareengineerexampropelrr.view.ValidatableTextInputLayout>
 
                 <com.jianastrero.mobilesoftwareengineerexampropelrr.view.ValidatableTextInputLayout
+                    android:id="@+id/tilAge"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
@@ -91,11 +110,13 @@
                     <com.google.android.material.textfield.TextInputEditText
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:text="@{ viewModel.age }"
                         android:focusable="false"/>
 
                 </com.jianastrero.mobilesoftwareengineerexampropelrr.view.ValidatableTextInputLayout>
 
                 <DatePicker
+                    android:id="@+id/datePicker"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
