@@ -87,6 +87,17 @@ public class ValidatableTextInputLayout extends TextInputLayout {
         return this;
     }
 
+    public ValidatableTextInputLayout validateAsRequired() {
+        regexMessagePairs.add(
+            new Pair<>(
+                Pattern.compile(".+"),
+                "This field is required"
+            )
+        );
+
+        return this;
+    }
+
     public boolean validate() {
         validate = true;
 
@@ -104,6 +115,8 @@ public class ValidatableTextInputLayout extends TextInputLayout {
 
         final EditText editText = getEditText();
 
+        String error = null;
+
         if (editText != null) {
 
             final Editable editable = editText.getText();
@@ -115,22 +128,24 @@ public class ValidatableTextInputLayout extends TextInputLayout {
             }
 
             if (text.isEmpty()) {
-                setError(getAllErrors());
+                error = getAllErrors();
             } else {
                 for (int i = 0; i < regexMessagePairs.size(); i++) {
                     final Pair<Pattern, String> pair = regexMessagePairs.get(i);
 
                     if (!pair.getFirst().matcher(text).matches()) {
-                        setError(pair.getSecond());
-                        return false;
+                        error = pair.getSecond();
+                        break;
                     }
                 }
             }
         } else {
-            setError(getAllErrors());
+            error = getAllErrors();
         }
 
-        return true;
+        setError(error);
+
+        return error == null;
     }
 
     private String getAllErrors() {
