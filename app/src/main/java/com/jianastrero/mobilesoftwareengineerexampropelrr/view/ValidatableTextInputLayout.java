@@ -98,6 +98,10 @@ public class ValidatableTextInputLayout extends TextInputLayout {
         return this;
     }
 
+    public boolean isValidating() {
+        return validate;
+    }
+
     public boolean validate() {
         validate = true;
 

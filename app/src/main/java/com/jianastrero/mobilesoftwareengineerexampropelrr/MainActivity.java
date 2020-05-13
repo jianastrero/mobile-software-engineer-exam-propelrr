@@ -63,6 +63,15 @@ public class MainActivity extends AppCompatActivity {
                     }
 
                     viewModel.age.set("" + age);
+
+                    try {
+                        if (Integer.parseInt(viewModel.age.get()) <= 18) {
+                            binding.tilAge.setError("You must be at least 18");
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        binding.tilAge.setError("You must be at least 18");
+                    }
                 }
             }
         );
@@ -83,11 +92,18 @@ public class MainActivity extends AppCompatActivity {
             isValid = isValid && b;
         }
 
-        if (isValid) {
+        try {
             if (Integer.parseInt(viewModel.age.get()) <= 18) {
                 binding.tilAge.setError("You must be at least 18");
-                return;
+                isValid = false;
             }
+        } catch (Exception e) {
+            e.printStackTrace();
+            binding.tilAge.setError("You must be at least 18");
+            isValid = false;
+        }
+
+        if (isValid) {
 
             // Do Something
         }
