@@ -1,15 +1,24 @@
 package com.jianastrero.mobilesoftwareengineerexampropelrr;
 
+import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.os.Build;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
+import com.google.android.material.snackbar.Snackbar;
 import com.jianastrero.mobilesoftwareengineerexampropelrr.databinding.ActivityMainBinding;
+import com.jianastrero.mobilesoftwareengineerexampropelrr.model.MockyResponse;
+import com.jianastrero.mobilesoftwareengineerexampropelrr.singleton.RetrofitSingleton;
 import com.jianastrero.mobilesoftwareengineerexampropelrr.viewmodel.MainViewModel;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 import java.security.DomainCombiner;
 import java.time.Month;
@@ -105,7 +114,50 @@ public class MainActivity extends AppCompatActivity {
 
         if (isValid) {
 
-            // Do Something
+            ProgressDialog progressDialog = new ProgressDialog(MainActivity.this);
+            progressDialog.setMessage("Submitting");
+            progressDialog.show();
+
+            RetrofitSingleton.getMocky()
+                .get()
+                .enqueue(new Callback<MockyResponse>() {
+                    @Override
+                    public void onResponse(
+                        Call<MockyResponse> call,
+                        Response<MockyResponse> response
+                    ) {
+                        MockyResponse body = response.body();
+                        if (body != null) {
+                            new AlertDialog.Builder(MainActivity.this)
+                                .setTitle("Messsage")
+                                .setMessage(body.getMessage())
+                                .setPositiveButton(
+                                    "Ok",
+                                    (dialog, which) -> dialog.dismiss()
+                                )
+                                .create()
+                                .show();
+                        } else {
+                            Snackbar.make(
+                                binding.getRoot(),
+                                "Server has been upgraded. Please check for app updates",
+                                Snackbar.LENGTH_SHORT
+                            ).show();
+                        }
+                        progressDialog.dismiss();
+                    }
+
+                    @Override
+                    public void onFailure(Call<MockyResponse> call, Throwable t) {
+                        progressDialog.dismiss();
+                        t.printStackTrace();
+                        Snackbar.make(
+                            binding.getRoot(),
+                            "Could not connect to server",
+                            Snackbar.LENGTH_SHORT
+                        ).show();
+                    }
+                });
         }
     }
 }
