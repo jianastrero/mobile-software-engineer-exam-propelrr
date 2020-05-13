@@ -44,6 +44,9 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-extensions:$rootProject.archLifecycleVersion"
     annotationProcessor "androidx.lifecycle:lifecycle-compiler:$rootProject.archLifecycleVersion"
 
+    // Retrofit
+    implementation 'com.squareup.retrofit2:retrofit:2.8.1'
+
     // Unit Test
     testImplementation 'junit:junit:4.12'
 
