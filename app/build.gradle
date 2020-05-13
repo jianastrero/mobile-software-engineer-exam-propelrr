@@ -24,6 +24,11 @@ android {
     dataBinding {
         enabled = true
     }
+
+    compileOptions {
+        sourceCompatibility = 1.8
+        targetCompatibility = 1.8
+    }
 }
 
 dependencies {
@@ -33,7 +38,11 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.1.0'
 
     // Material UI
-    implementation 'com.google.android.material:material:1.1.0'
+    implementation "com.google.android.material:material:$rootProject.materialVersion"
+
+    // Lifecycle components
+    implementation "androidx.lifecycle:lifecycle-extensions:$rootProject.archLifecycleVersion"
+    annotationProcessor "androidx.lifecycle:lifecycle-compiler:$rootProject.archLifecycleVersion"
 
     // Unit Test
     testImplementation 'junit:junit:4.12'
